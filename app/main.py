@@ -107,14 +107,27 @@ def send_text_file(file_name):
 def page_not_found(e):
     return render_template('404.html'), 404
 
-
-if __name__ == '__main__':
-    # app.debug = True
-    port = int(os.environ.get('PORT', 8001))
+# for exectuion
+isDebug = os.environ.get('DEBUG_MODE', 'false')
+if isDebug == 'true':
     # logging
     if not app.debug:
         handler = logging.StreamHandler(sys.stdout)
         handler.setLevel(logging.WARNING)
         app.logger.addHandler(handler)
 
+isTest = os.environ.get('TEST_MODE', 'false')
+if isTest != 'true': 
+    port = int(os.environ.get('PORT', 8001))
     app.run(host='0.0.0.0', port=port)
+
+# if __name__ == '__main__':
+#     # app.debug = True
+#     port = int(os.environ.get('PORT', 8001))
+#     # logging
+#     if not app.debug:
+#         handler = logging.StreamHandler(sys.stdout)
+#         handler.setLevel(logging.WARNING)
+#         app.logger.addHandler(handler)
+
+#     app.run(host='0.0.0.0', port=port)
